@@ -55,6 +55,13 @@ public class Owner extends Person {
 	@DBRef
 	private List<ElectricalPanel> electricalPanels = new ArrayList<>();
 
+	public Owner(String string) {
+		this.setFirstName(string);
+	}
+
+	public Owner() {
+	}
+
 	public String getAddress() {
 		return this.address;
 	}

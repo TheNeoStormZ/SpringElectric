@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body},'pannels')}">
+
+<body>
+
+<h2>Paneles Electricos</h2>
+
+<table id="pannels" class="table table-striped">
+  <thead>
+  <tr>
+    <th>Nombre</th>
+    <th>Descripción</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="pannel : ${listPannels}">
+    <td th:text="${pannel.name }"></td>
+    <td th:text="${pannel.description }"></td>
+  </tr>
+  </tbody>
+  
+</table>
+<form enctype="multipart/form-data" id="formCSV" method="POST" action="/electricalPanels/upload">
+  <input type="file" name="file" accept=".csv,.json">
+  <button type="submit" class="btn btn-dark">Subir</button>
+</form>
+
+
+<div th:if="${totalPages > 1}">
+  <span>Pages:</span>
+  <span>[</span>
+  <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+      <a th:if="${currentPage != i}" th:href="@{'/pannels.html?page=__${i}__'}">[[${i}]]</a>
+      <span th:unless="${currentPage != i}">[[${i}]]</span>
+    </span>
+  <span>]&nbsp;</span>
+  <span>
+      <a th:if="${currentPage > 1}" th:href="@{'/pannels.html?page=1'}" title="First"
+         class="fa fa-fast-backward"></a>
+      <span th:unless="${currentPage > 1}" title="First" class="fa fa-fast-backward"></span>
+    </span>
+  <span>
+      <a th:if="${currentPage > 1}" th:href="@{'/pannels.html?page=__${currentPage - 1}__'}" title="Previous"
+         class="fa fa-step-backward"></a>
+      <span th:unless="${currentPage > 1}" title="Previous" class="fa fa-step-backward"></span>
+    </span>
+  <span>
+      <a th:if="${currentPage < totalPages}" th:href="@{'/pannels.html?page=__${currentPage + 1}__'}" title="Next"
+         class="fa fa-step-forward"></a>
+      <span th:unless="${currentPage < totalPages}" title="Next" class="fa fa-step-forward"></span>
+    </span>
+  <span>
+      <a th:if="${currentPage < totalPages}" th:href="@{'/pannels.html?page=__${totalPages}__'}" title="Last"
+         class="fa fa-fast-forward"></a>
+      <span th:unless="${currentPage < totalPages}" title="Last" class="fa fa-fast-forward"></span>
+    </span>
+</div>
+</body>
+</html>

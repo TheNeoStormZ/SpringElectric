@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.owner;
 
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -44,6 +45,16 @@ public class ElectricalPanel extends NamedEntity {
 	private String description;
 
 	private Boolean isNotClient;
+
+	public ElectricalPanel(BigInteger bigInteger, String string, String string2, boolean parseBoolean) {
+		this.setId(bigInteger);
+		this.setName(string);
+		this.setDescription(string2);
+		this.setIsNotClient(isNotClient);
+	}
+
+	public ElectricalPanel() {
+	}
 
 	@Override
 	public String toString() {
