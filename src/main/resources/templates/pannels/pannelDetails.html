@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html
+  xmlns:th="https://www.thymeleaf.org"
+  th:replace="~{fragments/layout :: layout (~{::body},'punto')}"
+>
+  <body>
+    <h2>Información del panel</h2>
+
+    <table class="table table-striped" th:object="${punto}">
+      <tr>
+        <th>CUPS</th>
+        <td><b th:text="*{cups}"></b></td>
+      </tr>
+      <tr>
+        <th>Distribuidor</th>
+        <td th:text="*{distribuidor}"></td>
+      </tr>
+      <tr>
+        <th>Codigo operador</th>
+        <td th:text="*{codigoOperador}"></td>
+      </tr>
+      <tr>
+        <th>Titular identificativo</th>
+        <td th:text="*{titularIdentificativo}"></td>
+      </tr>
+      <tr>
+        <th>Titular nombre</th>
+        <td th:text="*{titularNombre}"></td>
+      </tr>
+      <tr>
+        <th>Titular direccion</th>
+        <td th:text="*{titularDireccion}"></td>
+      </tr>
+      <tr>
+        <th>Vivienda habitual</th>
+        <td th:text="*{viviendaHabitual}" ? ‘Sí’ : ‘No’“></td>
+      </tr>
+      <tr>
+        <th>Ubicacion</th>
+        <td th:text="*{ubicacion}"></td>
+      </tr>
+      <tr>
+        <th>Poblacion</th>
+        <td th:text="*{poblacion}"></td>
+      </tr>
+      <tr>
+        <th>Codigo postal</th>
+        <td th:text="*{codigoPostal}"></td>
+      </tr>
+      <tr>
+        <th>Provincia</th>
+        <td th:text="*{provincia}"></td>
+      </tr>
+      <tr>
+        <th>Fecha alta suministro</th>
+        <td th:text="*{fechaAltaSuministro}"></td>
+      </tr>
+    </table>
+
+    <a th:href="@{__${punto.cups}__/edit}" class="btn btn-primary"
+      >Editar panel</a
+    >
+  </body>
+</html>

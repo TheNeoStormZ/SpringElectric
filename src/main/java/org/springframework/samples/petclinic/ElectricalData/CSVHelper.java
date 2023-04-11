@@ -47,6 +47,16 @@ public class CSVHelper {
 		return Integer.valueOf(numb);
 	}
 
+	public Boolean converBoolean(String numb) {
+		if (numb.compareToIgnoreCase("Si") == 0) {
+			return true;
+		}
+		else if (numb.compareToIgnoreCase("No") == 0) {
+			return false;
+		}
+		return null;
+	}
+
 	public List<PuntosElectricos> csvElectricalPanels(InputStream is) {
 		CSVFormat csvFormat = CSVFormat.DEFAULT.builder()
 			.setHeader(HEADERS)
@@ -65,16 +75,16 @@ public class CSVHelper {
 				PuntosElectricos electricalPanel = new PuntosElectricos(csvRecord.get("CUPS"),
 						csvRecord.get("DISTRIBUIDOR"), csvRecord.get("CODIGO OPERADOR"),
 						csvRecord.get("TITULAR IDENTIFICATIVO"), csvRecord.get("TITULAR NOMBRE"),
-						csvRecord.get("TITULAR DIRECCION"), Boolean.parseBoolean(csvRecord.get("VIVIENDA HABITUAL")),
+						csvRecord.get("TITULAR DIRECCION"), converBoolean(csvRecord.get("VIVIENDA HABITUAL")),
 						csvRecord.get("UBICACION"), csvRecord.get("POBLACION"),
 						converNumber(csvRecord.get("CODIGO POSTAL").replace(".", "")), csvRecord.get("PROVINCIA"),
 						csvRecord.get("FECHA ALTA SUMINISTRO"), csvRecord.get("TARIFA"),
 						converNumber(csvRecord.get("TENSION SUMINISTRO (V)").replace(".", "")),
-						Boolean.parseBoolean(csvRecord.get("DISCRIMINACION HORARIA")),
+						converBoolean(csvRecord.get("DISCRIMINACION HORARIA")),
 						csvRecord.get("TIPO DISCRIMINACION HORARIA"),
 						converNumber(csvRecord.get("POTENCIA MAX BOLETIN (kW)").replace(".", "")),
 						converNumber(csvRecord.get("POTENCIA MAX ACTA (kW)").replace(".", "")),
-						csvRecord.get("TIPO PUNTO MEDIDA"), Boolean.parseBoolean(csvRecord.get("DISPONIBILIDAD ICP")),
+						csvRecord.get("TIPO PUNTO MEDIDA"), converBoolean(csvRecord.get("DISPONIBILIDAD ICP")),
 						csvRecord.get("TIPO PERFIL"),
 						converNumber(csvRecord.get("DERECHO EXTENSION (kW)").replace(".", "")),
 						converNumber(csvRecord.get("DERECHO ACCESO (kW)").replace(".", "")),
@@ -83,7 +93,7 @@ public class CSVHelper {
 						csvRecord.get("FECHA ULTIMO CAMBIO COMERCIALIZADOR"),
 						csvRecord.get("FECHA LIMITE DERECHOS EXTENSION"), csvRecord.get("FECHA ULTIMA LECTURA"),
 						converNumber(csvRecord.get("IMPAGOS").replace(".", "")),
-						Boolean.parseBoolean(csvRecord.get("DEPOSITO DE GARANTIA")),
+						converBoolean(csvRecord.get("DEPOSITO DE GARANTIA")),
 						(csvRecord.get("IMPORTE DEPOSITO DE GARANTIA")));
 
 				electricalPanels.add(electricalPanel);

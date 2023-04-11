@@ -19,7 +19,9 @@
   </thead>
   <tbody>
   <tr th:each="pannel : ${listPannels}">
-    <td th:text="${pannel.cups }"></td>
+    <td>
+    <a th:href="@{/pannel/__${pannel.cups}__}" th:text="${pannel.cups }"/></a>
+  </td>
     <td th:text="${pannel.distribuidor }"></td>
     <td th:text="${pannel.codigoOperador }"></td>
     <td th:text="${pannel.titularIdentificativo }"></td>
