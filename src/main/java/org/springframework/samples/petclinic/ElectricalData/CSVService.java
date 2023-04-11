@@ -1,4 +1,4 @@
-package org.springframework.samples.petclinic.owner;
+package org.springframework.samples.petclinic.ElectricalData;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,14 +11,15 @@ import org.springframework.web.multipart.MultipartFile;
 public class CSVService {
 
 	@Autowired
-	ElectricalPannelRepository repository;
+	PuntosRepository repository;
 
 	@Autowired
 	CSVHelper csvHelper;
 
 	public void save(MultipartFile file) {
 		try {
-			List<ElectricalPanel> electricalPanels = csvHelper.csvElectricalPanels(file.getInputStream());
+			System.out.println("T1");
+			List<PuntosElectricos> electricalPanels = csvHelper.csvElectricalPanels(file.getInputStream());
 			repository.saveAll(electricalPanels);
 		}
 		catch (IOException e) {
@@ -26,7 +27,7 @@ public class CSVService {
 		}
 	}
 
-	public List<ElectricalPanel> getAllElectricalPanels() {
+	public List<PuntosElectricos> getAllElectricalPanels() {
 		return repository.findAll();
 	}
 

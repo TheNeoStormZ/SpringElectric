@@ -1,4 +1,4 @@
-package org.springframework.samples.petclinic.owner;
+package org.springframework.samples.petclinic.ElectricalData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 class UploadController {
 
-	private final ElectricalPannelRepository pannelRepository;
+	private final PuntosRepository pannelRepository;
 
 	@Autowired
 	CSVService csvService;
@@ -27,13 +27,7 @@ class UploadController {
 	@Autowired
 	CSVHelper csvHelper;
 
-	@Autowired
-	JSONHelper jsonHelper;
-
-	@Autowired
-	JSONService jsonService;
-
-	public UploadController(ElectricalPannelRepository pannelRepository) {
+	public UploadController(PuntosRepository pannelRepository) {
 		this.pannelRepository = pannelRepository;
 	}
 
@@ -42,22 +36,22 @@ class UploadController {
 		// Here we are returning an object of type 'Vets' rather than a collection of
 		// Vet
 		// objects so it is simpler for Object-Xml mapping
-		Page<ElectricalPanel> paginated = findPaginated(page);
-		List<ElectricalPanel> paneles = new ArrayList<>();
+		Page<PuntosElectricos> paginated = findPaginated(page);
+		List<PuntosElectricos> paneles = new ArrayList<>();
 		paneles.addAll(paginated.toList());
 		return addPaginationModel(page, paginated, model);
 
 	}
 
-	private Page<ElectricalPanel> findPaginated(int page) {
-		int pageSize = 10;
+	private Page<PuntosElectricos> findPaginated(int page) {
+		int pageSize = 30;
 		Pageable pageable = PageRequest.of(page - 1, pageSize);
 		return pannelRepository.findAll(pageable);
 	}
 
-	private String addPaginationModel(int page, Page<ElectricalPanel> paginated, Model model) {
+	private String addPaginationModel(int page, Page<PuntosElectricos> paginated, Model model) {
 
-		List<ElectricalPanel> listPannels = paginated.getContent();
+		List<PuntosElectricos> listPannels = paginated.getContent();
 		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPages", paginated.getTotalPages());
 		model.addAttribute("totalItems", paginated.getTotalElements());
@@ -76,17 +70,7 @@ class UploadController {
 				return ResponseEntity.status(HttpStatus.OK).body(new String(message));
 			}
 			catch (Exception e) {
-				message = "Could not upload the file: " + file.getOriginalFilename() + "!";
-				return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new String(message));
-			}
-		}
-		else if (jsonHelper.hasJSONFormat(file)) {
-			try {
-				jsonService.save(file);
-				message = "Uploaded the file successfully: " + file.getOriginalFilename();
-				return ResponseEntity.status(HttpStatus.OK).body(new String(message));
-			}
-			catch (Exception e) {
+				System.out.println("ERROR: " + e.getLocalizedMessage());
 				message = "Could not upload the file: " + file.getOriginalFilename() + "!";
 				return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new String(message));
 			}

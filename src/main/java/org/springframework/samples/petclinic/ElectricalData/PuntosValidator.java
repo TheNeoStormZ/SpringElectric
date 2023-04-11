@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.owner;
+package org.springframework.samples.petclinic.ElectricalData;
 
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
@@ -29,21 +29,21 @@ import org.springframework.validation.Validator;
  * @author Ken Krebs
  * @author Juergen Hoeller
  */
-public class ElectricalPanelValidator implements Validator {
+public class PuntosValidator implements Validator {
 
 	private static final String REQUIRED = "required";
 
 	@Override
 	public void validate(Object obj, Errors errors) {
-		ElectricalPanel electricalPanel = (ElectricalPanel) obj;
-		String name = electricalPanel.getName();
+		PuntosElectricos electricalPanel = (PuntosElectricos) obj;
+		String name = electricalPanel.getCups();
 		// name validation
 		if (!StringUtils.hasLength(name)) {
 			errors.rejectValue("name", REQUIRED, "El nombre no debe estar vacio");
 		}
 
 		// description validation
-		String description = electricalPanel.getDescription();
+		String description = electricalPanel.getTarifa();
 		if (!StringUtils.hasLength(description)) {
 			errors.rejectValue("description", REQUIRED, "La descripcion no debe estar vacia");
 		}
@@ -55,7 +55,7 @@ public class ElectricalPanelValidator implements Validator {
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return ElectricalPanel.class.isAssignableFrom(clazz);
+		return PuntosElectricos.class.isAssignableFrom(clazz);
 	}
 
 }

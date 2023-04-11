@@ -10,14 +10,20 @@
 <table id="pannels" class="table table-striped">
   <thead>
   <tr>
-    <th>Nombre</th>
-    <th>Descripción</th>
+    <th>CUPS</th>
+    <th>Distribuidor</th>
+    <th>Código Operador</th>
+    <th>Titular Identificativo</th>
+
   </tr>
   </thead>
   <tbody>
   <tr th:each="pannel : ${listPannels}">
-    <td th:text="${pannel.name }"></td>
-    <td th:text="${pannel.description }"></td>
+    <td th:text="${pannel.cups }"></td>
+    <td th:text="${pannel.distribuidor }"></td>
+    <td th:text="${pannel.codigoOperador }"></td>
+    <td th:text="${pannel.titularIdentificativo }"></td>
+    
   </tr>
   </tbody>
   
