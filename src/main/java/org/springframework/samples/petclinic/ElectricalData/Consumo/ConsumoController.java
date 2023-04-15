@@ -1,4 +1,4 @@
-package org.springframework.samples.petclinic.ElectricalData;
+package org.springframework.samples.petclinic.ElectricalData.Consumo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.samples.petclinic.ElectricalData.PuntosElectricos;
+import org.springframework.samples.petclinic.ElectricalData.PuntosRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,27 +21,30 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-class UploadController {
+class ConsumoController {
 
-	private final PuntosRepository pannelRepository;
+	private final ConsumoRepository cr;
+
+	private final PuntosRepository pr;
 
 	@Autowired
-	CSVService csvService;
+	CSVServiceConsumo csvService;
 
 	@Autowired
-	CSVHelper csvHelper;
+	CSVHelperConsumo csvHelper;
 
-	public UploadController(PuntosRepository pannelRepository) {
-		this.pannelRepository = pannelRepository;
+	public ConsumoController(ConsumoRepository cr, PuntosRepository pr) {
+		this.cr = cr;
+		this.pr = pr;
 	}
 
-	@GetMapping("/pannels.html")
+	@GetMapping("/consumo.html")
 	public String showVetList(@RequestParam(defaultValue = "1") int page, Model model) {
 		// Here we are returning an object of type 'Vets' rather than a collection of
 		// Vet
 		// objects so it is simpler for Object-Xml mapping
-		Page<PuntosElectricos> paginated = findPaginated(page);
-		List<PuntosElectricos> paneles = new ArrayList<>();
+		Page<Consumo> paginated = findPaginated(page);
+		List<Consumo> paneles = new ArrayList<>();
 		paneles.addAll(paginated.toList());
 		return addPaginationModel(page, paginated, model);
 
@@ -50,31 +55,34 @@ class UploadController {
 	 * @param CUPS the ID of the pannel to display
 	 * @return a ModelMap with the model attributes for the view
 	 */
-	@GetMapping("/pannel/{CUPS}")
+	@GetMapping("/consumo/{CUPS}")
 	public ModelAndView showOwner(@PathVariable("CUPS") String CUPS) {
-		ModelAndView mav = new ModelAndView("pannels/pannelDetails");
-		PuntosElectricos punto = this.pannelRepository.findByCups(CUPS).orElse(new PuntosElectricos());
-		mav.addObject("punto", punto);
+		ModelAndView mav = new ModelAndView("panels/panelDetails");
+		PuntosElectricos punto = this.pr.findByCups(CUPS).orElse(new PuntosElectricos());
+
+		List<Consumo> listaConsumo = this.cr.findByPunto(punto);
+
+		mav.addObject("consumos", listaConsumo);
 		return mav;
 	}
 
-	private Page<PuntosElectricos> findPaginated(int page) {
+	private Page<Consumo> findPaginated(int page) {
 		int pageSize = 30;
 		Pageable pageable = PageRequest.of(page - 1, pageSize);
-		return pannelRepository.findAll(pageable);
+		return cr.findAll(pageable);
 	}
 
-	private String addPaginationModel(int page, Page<PuntosElectricos> paginated, Model model) {
+	private String addPaginationModel(int page, Page<Consumo> paginated, Model model) {
 
-		List<PuntosElectricos> listPannels = paginated.getContent();
+		List<Consumo> listConsumos = paginated.getContent();
 		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPages", paginated.getTotalPages());
 		model.addAttribute("totalItems", paginated.getTotalElements());
-		model.addAttribute("listPannels", listPannels);
-		return "pannels/pannelList";
+		model.addAttribute("consumos", listConsumos);
+		return "panels/consumosList";
 	}
 
-	@PostMapping("/electricalPanels/upload")
+	@PostMapping("/consumos/upload")
 	public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
 		String message = "";
 

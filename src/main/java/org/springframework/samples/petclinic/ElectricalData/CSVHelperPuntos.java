@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 @Component
-public class CSVHelper {
+public class CSVHelperPuntos {
 
 	public String TYPE = "text/csv";
 
@@ -28,7 +28,7 @@ public class CSVHelper {
 			"FECHA ULTIMO CAMBIO COMERCIALIZADOR", "FECHA LIMITE DERECHOS EXTENSION", "FECHA ULTIMA LECTURA", "IMPAGOS",
 			"DEPOSITO DE GARANTIA", "IMPORTE DEPOSITO DE GARANTIA" };
 
-	public CSVHelper() {
+	public CSVHelperPuntos() {
 
 	}
 

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html
+  xmlns:th="https://www.thymeleaf.org"
+  th:replace="~{fragments/layout :: layout (~{::body},'punto')}"
+>
+  <body>
+    <h2>Información del panel</h2>
+
+    <table class="table table-striped" th:object="${punto}">
+      <tr>
+        <th>CUPS</th>
+        <td><b th:text="*{cups}"></b></td>
+      </tr>
+      <tr>
+        <th>Distribuidor</th>
+        <td th:text="*{distribuidor}"></td>
+      </tr>
+      <tr>
+        <th>Código Operador</th>
+        <td th:text="*{codigoOperador}"></td>
+      </tr>
+      <tr>
+        <th>Titular Identificativo</th>
+        <td th:text="*{titularIdentificativo}"></td>
+      </tr>
+      <tr>
+        <th>Titular Nombre</th>
+        <td th:text="*{titularNombre}"></td>
+      </tr>
+      <tr>
+        <th>Titular Dirección</th>
+        <td th:text="*{titularDireccion}"></td>
+      </tr>
+      <tr>
+        <th>Vivienda Habitual</th>
+        <td th:text="*{viviendaHabitual}"></td>
+      </tr>
+      <tr>
+        <th>Ubicación</th>
+        <td th:text="*{ubicacion}"></td>
+      </tr>
+      <tr>
+        <th>Población</th>
+        <td th:text="*{poblacion}"></td>
+      </tr>
+      <tr>
+        <th>Código Postal</th>
+        <td th:text="*{codigoPostal}"></td>
+      </tr>
+      <tr>
+        <th>Provincia</th>
+        <td th:text="*{provincia}"></td>
+      </tr>
+      <tr>
+        <th>Fecha Alta Suministro</th>
+        <td th:text="*{fechaAltaSuministro}"></td>
+      </tr>
+      <tr>
+        <th>Tarifa</th>
+        <td th:text="*{tarifa}"></td>
+      </tr>
+
+      <tr>
+        <th>Tensión Suministro (V)</th>
+
+        <td th:text="*{tensionSuministro}"></td>
+      </tr>
+
+      <tr>
+        <th>Discriminación Horaria</th>
+
+        <td th:text="*{discriminacionHoraria}"></td>
+      </tr>
+
+      <tr>
+        <th>Tipo Discriminación Horaria</th>
+
+        <td th:text="*{tipoDiscriminacionHoraria}"></td>
+      </tr>
+
+      <tr>
+        <th>Potencia Max Boletín (kW)</th>
+
+        <td th:text="*{potenciaMaxBoletin}"></td>
+      </tr>
+
+      <tr>
+        <th>Potencia Max Acta (kW)</th>
+
+        <td th:text="*{potenciaMaxActa}"></td>
+      </tr>
+
+      <tr>
+        <th>Tipo Punto Medida</th>
+
+        <td th:text="*{tipoPuntoMedida}"></td>
+      </tr>
+
+      <tr>
+        <th>Disponibilidad ICP</th>
+
+        <td th:text="*{disponibilidadIcp}"></td>
+      </tr>
+
+      <tr>
+        <th>Tipo Perfil</th>
+
+        <td th:text="*{tipoPerfil}"></td>
+      </tr>
+
+      <tr>
+        <th>Derecho Extensión (kW)</th>
+
+        <td th:text="*{derechoExtension}"></td>
+      </tr>
+
+      <tr>
+        <th>Derecho Acceso (kW)</th>
+
+        <td th:text="*{derechoAcceso}"></td>
+      </tr>
+
+      <tr>
+        <th>Propiedad Equipo Medida</th>
+
+        <td th:text="*{propiedadEquipoMedida}"></td>
+      </tr>
+
+      <tr>
+        <th>Propiedad ICP</th>
+
+        <td th:text="*{propiedadIcp}"></td>
+      </tr>
+
+      <tr>
+        <th>Fecha Último Movimiento de Contratación</th>
+        <td th:text="*{fechaUltimoMovimientoContratacion}"></td>
+      </tr>
+      <tr>
+        <th>Fecha Último Cambio Comercializador</th>
+        <td th:text="*{fechaUltimoCambioComercializador}"></td>
+      </tr>
+      <tr>
+        <th>Fecha Límite Derechos Extensión</th>
+        <td th:text="*{fechaLimiteDerechosExtension}"></td>
+      </tr>
+      <tr>
+        <th>Fecha Última Lectura</th>
+        <td th:text="*{fechaUltimaLectura}"></td>
+      </tr>
+      <tr>
+        <th>Impagos</th>
+        <td th:text="*{impagos}"></td>
+      </tr>
+      <tr>
+        <th>Depósito de Garantía</th>
+        <td th:text="*{depositoGarantia}"></td>
+      </tr>
+      <tr>
+        <th>Importe Depósito de Garantía</th>
+        <td th:text="*{importeDepositoGarantia}"></td>
+      </tr>
+    </table>
+
+    <a th:href="@{__${punto.cups}__/edit}" class="btn btn-secondary"
+      >Editar panel</a
+    >
+
+    <a href="#consumo" class="btn btn-secondary">Ver consumo</a>
+
+    <a href="#potencias" class="btn btn-secondary">Ver potencias</a>
+
+    <h2 id="consumo">Consumo del punto</h2>
+    <table class="table table-striped" th:each="consumo : ${listConsumo}">
+      <tr>
+        <th>Fecha</th>
+        <td th:text="*{consumo.fechaMedida}"></td>
+      </tr>
+      <tr>
+        <th>Medida</th>
+        <td th:text="*{consumo.titpoMedia}"></td>
+      </tr>
+      <tr>
+        <th>Periodo</th>
+        <td th:text="*{consumo.periodo}"></td>
+      </tr>
+      <tr>
+        <th>Consumo</th>
+        <td th:text="*{consumo.consumo}"></td>
+      </tr>
+    </table>
+    <h2 id="potencias">Potencia</h2>
+    <table class="table table-striped" th:each="potencia : ${listPotencia}">
+      <tr>
+        <th>Periodo</th>
+        <td th:text="*{potencia.periodo}"></td>
+      </tr>
+      <tr>
+        <th>potenciaContratada</th>
+        <td th:text="*{potencia.potenciaContratada}"></td>
+      </tr>
+    </table>
+  </body>
+</html>

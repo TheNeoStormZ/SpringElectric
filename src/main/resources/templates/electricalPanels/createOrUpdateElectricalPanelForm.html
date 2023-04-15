@@ -1,0 +1,50 @@
+<html xmlns:th="https://www.thymeleaf.org"
+  th:replace="~{fragments/layout :: layout (~{::body},'puntos')}">
+
+<body>
+
+  <h2>Punto Electrico</h2>
+  <form th:object="${puntoElectrico}" class="form-horizontal" id="add-owner-form" method="post">
+    <div class="form-group has-feedback">
+      <input th:replace="~{fragments/inputField :: input ('', 'cups', 'text_ro')}" />
+      <input th:replace="~{fragments/inputField :: input ('Distribuidor', 'distribuidor', 'text')}" />
+      <input th:replace="~{fragments/inputField :: input ('Código Operador', 'codigoOperador', 'text')}" />
+      <input th:replace="~{fragments/inputField :: input ('Titular Identificativo', 'titularIdentificativo', 'text')}" />
+      <input th:replace="~{fragments/inputField :: input ('Titular Nombre', 'titularNombre', 'text')}" />
+      <input th:replace="~{fragments/inputField :: input ('Titular Dirección', 'titularDireccion', 'text')}" />
+      <input th:replace="~{fragments/inputField :: input ('Ubicación', 'ubicacion', 'text')}" />
+      <input th:replace="~{fragments/inputField :: input ('Población', 'poblacion', 'text')}" />
+      <input th:replace="~{fragments/inputField :: input ('Código Postal', 'codigoPostal', 'number')}" />
+      <input th:replace="~{fragments/inputField :: input ('Provincia', 'provincia', 'text')}" />
+      <input th:replace="~{fragments/inputField :: input ('Fecha Alta Suministro', 'fechaAltaSuministro', 'text')}" />
+      <input th:replace="~{fragments/inputField :: input ('Tarifa', 'tarifa', 'text')}" />
+      <input th:replace="~{fragments/inputField :: input ('Tensión Suministro (V)', 'tensionSuministro', 'number')}" />
+      <input th:replace="~{fragments/inputField :: input ('Tipo Discriminación Horaria', 'tipoDiscriminacionHoraria', 'text')}" />
+      <input th:replace="~{fragments/inputField :: input ('Potencia Máx Boletín (kW)', 'potenciaMaxBoletin', 'number')}" />
+      <input th:replace="~{fragments/inputField :: input ('Potencia Máx Acta (kW)', 'potenciaMaxActa', 'number')}" />
+      <input th:replace="~{fragments/inputField :: input ('Tipo Punto Medida', 'tipoPuntoMedida', 'text')}" />
+      <input th:replace="~{fragments/inputField :: input ('Tipo Perfil', 'tipoPerfil', 'text')}" />
+      <input th:replace="~{fragments/inputField :: input ('Derecho Extensión (kW)', 'derechoExtension', 'number')}" />
+      <input th:replace="~{fragments/inputField :: input ('Derecho Acceso (kW)', 'derechoAcceso', 'number')}" />
+      <input th:replace="~{fragments/inputField :: input ('Propiedad Equipo Medida', 'propiedadEquipoMedida', 'text')}" />
+      <input th:replace="~{fragments/inputField :: input ('Propiedad ICP', 'propiedadIcp', 'text')}" />
+      <input th:replace="~{fragments/inputField :: input ('Fecha Último Movimiento de Contratación', 'fechaUltimoMovimientoContratacion', 'text')}" />
+      <input th:replace="~{fragments/inputField :: input ('Fecha Último Cambio Comercializador', 'fechaUltimoCambioComercializador', 'text')}" />
+      <input th:replace="~{fragments/inputField :: input ('Fecha Límite Derechos Extensión','fechaLimiteDerechosExtension','text')}"/>
+      <input th:replace="~{fragments/inputField :: input ('Fecha Última Lectura','fechaUltimaLectura','text')}"/>
+      <input th:replace="~{fragments/inputField :: input ('Impagos', 'impagos', 'number')}" />
+      <input th:replace="~{fragments/inputField :: input ('Importe Depósito de Garantía', 'importeDepositoGarantia', 'text')}" />
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button
+          th:with="text=${puntoElectrico['new']} ? 'Añadir punto' : 'Actualizar punto'"
+          class="btn btn-primary" type="submit" th:text="${text}">Añadir
+          Punto Electrico</button>
+      </div>
+    </div>
+  </form>
+</body>
+</html>
+

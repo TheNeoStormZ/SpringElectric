@@ -15,20 +15,9 @@
  */
 package org.springframework.samples.petclinic.ElectricalData;
 
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.util.Collection;
-import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.Set;
-
-import org.springframework.core.style.ToStringCreator;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.samples.petclinic.model.BaseEntity;
-import org.springframework.samples.petclinic.model.NamedEntity;
-
-import com.mongodb.lang.NonNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -51,6 +40,7 @@ import lombok.ToString;
 @NoArgsConstructor
 public class PuntosElectricos extends BaseEntity {
 
+	@Indexed(unique = true)
 	private String cups;
 
 	private String distribuidor;

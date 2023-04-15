@@ -1,4 +1,4 @@
-package org.springframework.samples.petclinic.ElectricalData;
+package org.springframework.samples.petclinic.ElectricalData.Potencias;
 
 import java.io.IOException;
 import java.util.List;
@@ -8,26 +8,25 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
-public class CSVService {
+public class CSVServicePotencia {
 
 	@Autowired
-	PuntosRepository repository;
+	PotenciaRepository repository;
 
 	@Autowired
-	CSVHelper csvHelper;
+	CSVHelperPotencia csvHelper;
 
 	public void save(MultipartFile file) {
 		try {
-			System.out.println("T1");
-			List<PuntosElectricos> electricalPanels = csvHelper.csvElectricalPanels(file.getInputStream());
-			repository.saveAll(electricalPanels);
+			List<Potencia> potencias = csvHelper.csvPotencias(file.getInputStream());
+			repository.saveAll(potencias);
 		}
 		catch (IOException e) {
 			throw new RuntimeException("fail to store csv data: " + e.getMessage());
 		}
 	}
 
-	public List<PuntosElectricos> getAllElectricalPanels() {
+	public List<Potencia> getAllPotencias() {
 		return repository.findAll();
 	}
 
