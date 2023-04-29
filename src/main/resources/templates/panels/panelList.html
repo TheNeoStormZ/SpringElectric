@@ -7,7 +7,17 @@
 
 <h2>Paneles Electricos</h2>
 
+<form method="GET" action="/panels.html">
+  <table>
+  <tr>
+  <td><input type="text" name="keyword" th:value="${keyword}" placeholder="Buscar por CUPS"/></td>
+  <td><input type="submit" value="Buscar"/></td>
+  </tr>
+  </table>
+  </form>
+
 <table id="pannels" class="table table-striped">
+  
   <thead>
   <tr>
     <th>CUPS</th>

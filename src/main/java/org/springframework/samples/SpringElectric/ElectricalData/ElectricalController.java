@@ -50,14 +50,13 @@ class ElectricalController {
 	}
 
 	@GetMapping("/panels.html")
-	public String showVetList(@RequestParam(defaultValue = "1") int page, Model model) {
-		// Here we are returning an object of type 'Vets' rather than a collection of
-		// Vet
-		// objects so it is simpler for Object-Xml mapping
-		Page<PuntosElectricos> paginated = findPaginated(page);
+	public String showPannels(@RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "") String keyword, Model model) {
+
+		Page<PuntosElectricos> paginated = findPaginated(page, keyword);
 		List<PuntosElectricos> paneles = new ArrayList<>();
 		paneles.addAll(paginated.toList());
-		return addPaginationModel(page, paginated, model);
+		return addPaginationModel(page, paginated, model, keyword);
 
 	}
 
@@ -67,7 +66,7 @@ class ElectricalController {
 	 * @return a ModelMap with the model attributes for the view
 	 */
 	@GetMapping("/panel/{CUPS}")
-	public ModelAndView showOwner(@PathVariable("CUPS") String CUPS) {
+	public ModelAndView showData(@PathVariable("CUPS") String CUPS) {
 		ModelAndView mav = new ModelAndView("panels/panelDetails");
 		PuntosElectricos punto = this.panelRepository.findByCups(CUPS).orElse(new PuntosElectricos());
 		List<Consumo> consumos = this.cr.findByPunto(punto);
@@ -80,19 +79,21 @@ class ElectricalController {
 		return mav;
 	}
 
-	private Page<PuntosElectricos> findPaginated(int page) {
+	private Page<PuntosElectricos> findPaginated(int page, String keyword) {
 		int pageSize = 30;
 		Pageable pageable = PageRequest.of(page - 1, pageSize);
-		return panelRepository.findAll(pageable);
+		String regex = ".*" + keyword + ".*"; // Busca los que contienen ese valor en CUPS
+		return panelRepository.findByCupsRegex(regex, pageable);
 	}
 
-	private String addPaginationModel(int page, Page<PuntosElectricos> paginated, Model model) {
 
+	private String addPaginationModel(int page, Page<PuntosElectricos> paginated, Model model, String keyword) {
 		List<PuntosElectricos> listPanels = paginated.getContent();
 		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPages", paginated.getTotalPages());
 		model.addAttribute("totalItems", paginated.getTotalElements());
 		model.addAttribute("listPanels", listPanels);
+		model.addAttribute("keyword", keyword);
 		return "panels/panelList";
 	}
 
